@@ -25,12 +25,15 @@ namespace cheat
     static DWORD WINAPI init(LPVOID param) noexcept
     {
         logger::init("Far Cry 3", "cheat_log.txt");
+        log_success("Logger initialized.");
+
         input::init();
 
         m_fc3.m_name = GetModuleHandle("FC3_d3d11.dll") ? "FC3_d3d11.dll" : "FC3.dll";
         m_fc3.init();
 
         hooks::init();
+        log_success("Set up hooks - entering idle loop.");
 
         log_raw("Infinite ammo: numpad 0");
         log_raw("Infinite money: numpad 1");

@@ -49,7 +49,6 @@ void hooks::init()
     set_hook(update, update::hook, (void**)&update::original, "hkpCharacterStateJumping::update");
 
     MH_EnableHook(nullptr);
-    log_success("Set up hooks - entering idle loop.");
 }
 
 LRESULT CALLBACK input::wnd_proc::hook(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
