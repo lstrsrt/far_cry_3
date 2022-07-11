@@ -12,6 +12,8 @@
 
 struct address
 {
+    uintptr_t m_value{ };
+
     constexpr explicit address() noexcept = default;
     address(uintptr_t value) noexcept
         : m_value(value) { }
@@ -56,12 +58,14 @@ struct address
 
     operator address() noexcept { return m_value; }
     bool operator ==(void* rhs) const noexcept { return cast< void* >() == rhs; }
-
-    uintptr_t m_value{ };
 };
 
 struct module_t
 {
+    std::string m_name{ };
+    HMODULE m_handle{ };
+    MODULEINFO m_info{ };
+
     explicit module_t() noexcept = default;
     explicit module_t(std::string_view name) noexcept
         : m_name(name)
@@ -102,8 +106,4 @@ struct module_t
         log_error("Did not find pattern {} in module {}!", i, m_name);
         return address();
     }
-
-    std::string m_name{ };
-    HMODULE m_handle{ };
-    MODULEINFO m_info{ };
 };

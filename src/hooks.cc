@@ -18,6 +18,9 @@ void hooks::init()
     const auto update_current_ammo = cheat::m_fc3.find(PATTERN("E8 ? ? ? ? EB 06 89 81"), true).cast<void*>();
     log_info("Found UpdateCurrentAmmo -> {}", update_current_ammo);
 
+    const auto sub_reserve_ammo = cheat::m_fc3.find(PATTERN("E8 ? ? ? ? F6 05 ? ? ? ? ? BF ? ? ? ? 75 50"), true).cast<void*>();
+    log_info("Found SubReserveAmmo -> {}", sub_reserve_ammo);
+
     const auto sub_money = cheat::m_fc3.find(PATTERN("E9 ? ? ? ? 33 C0 39 41 64"), true).cast<void*>();
     log_info("Found SubMoney -> {}", sub_money);
 
@@ -40,6 +43,7 @@ void hooks::init()
     log_info("Found hkpCharacterStateJumping::update -> {}", update);
 
     set_hook(update_current_ammo, update_current_ammo::hook, (void**)&update_current_ammo::original, "UpdateCurrentAmmo");
+    set_hook(sub_reserve_ammo, sub_reserve_ammo::hook, (void**)&sub_reserve_ammo::original, "SubReserveAmmo");
     set_hook(sub_money, sub_money::hook, (void**)&sub_money::original, "SubMoney");
     set_hook(sub_health_syringe, sub_health_syringe::hook, (void**)&sub_health_syringe::original, "SubHealthSyringe");
     set_hook(get_life_state, get_life_state::hook, (void**)&get_life_state::original, "GetLifeState");
@@ -62,6 +66,14 @@ LRESULT CALLBACK input::wnd_proc::hook(HWND hwnd, UINT msg, WPARAM wparam, LPARA
 int __fastcall hooks::update_current_ammo::hook(sdk::weapon* ecx, int, int amount)
 {
     return settings::m_inf_ammo ? original(ecx, amount + 1) : original(ecx, amount);
+}
+
+void __fastcall hooks::sub_reserve_ammo::hook(sdk::weapon* ecx, int, int amount)
+{
+    if (settings::m_inf_ammo)
+        return;
+
+    return original(ecx, amount);
 }
 
 void __fastcall hooks::sub_money::hook(sdk::money* ecx, int, int amount)

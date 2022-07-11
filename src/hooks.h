@@ -21,6 +21,7 @@ namespace hooks
     }
 
     decl_hook(int, update_current_ammo, sdk::weapon, int)
+    decl_hook(void, sub_reserve_ammo, sdk::weapon, int)
     decl_hook(void, sub_money, sdk::money, int)
     decl_hook(void, sub_health_syringe, sdk::unknown_struct)
     decl_hook(int, get_life_state, sdk::player)

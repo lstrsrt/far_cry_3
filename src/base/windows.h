@@ -8,6 +8,8 @@ namespace windows
 {
     struct scoped_handle
     {
+        HANDLE m_handle{ };
+
         scoped_handle() noexcept { }
         scoped_handle(HANDLE handle) noexcept
             : m_handle(handle) { }
@@ -21,8 +23,6 @@ namespace windows
 
         operator bool() const noexcept { return is_valid(); }
         operator HANDLE() noexcept { return m_handle; }
-
-        HANDLE m_handle{ };
     };
 
     inline bool get_process_id(std::string_view name, DWORD& pid) noexcept
