@@ -7,7 +7,6 @@
 #include "base/logger.h"
 #include "base/input.h"
 #include "hooks.h"
-#include "cheat.h"
 #include "../ext/MinHook/include/MinHook.h"
 
 namespace cheat

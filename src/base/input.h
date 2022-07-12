@@ -27,7 +27,7 @@ namespace input
             return;
         }
 
-        wnd_proc::original = reinterpret_cast<WNDPROC>(SetWindowLong(m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG>(wnd_proc::hook)));
+        wnd_proc::original = reinterpret_cast<WNDPROC>(SetWindowLongPtr(m_hwnd, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(wnd_proc::hook)));
         if (!wnd_proc::original)
             log_error("Could not redirect window message handler.");
 

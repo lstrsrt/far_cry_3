@@ -57,7 +57,7 @@ struct address
     }
 
     operator address() noexcept { return m_value; }
-    bool operator ==(void* rhs) const noexcept { return cast< void* >() == rhs; }
+    bool operator ==(void* rhs) const noexcept { return cast<void*>() == rhs; }
 };
 
 struct module_t
@@ -66,7 +66,7 @@ struct module_t
     HMODULE m_handle{ };
     MODULEINFO m_info{ };
 
-    explicit module_t() noexcept = default;
+    constexpr explicit module_t() noexcept = default;
     explicit module_t(std::string_view name) noexcept
         : m_name(name)
     {
@@ -85,7 +85,7 @@ struct module_t
     }
 
     template<size_t len>
-    address find(std::array<int, len> pattern, bool relative = false, ptrdiff_t rel_offset = 0x1) noexcept
+    address find(std::array<int, len>&& pattern, bool relative = false, ptrdiff_t rel_offset = 0x1) noexcept
     {
         static_assert(len > 0);
 
@@ -93,8 +93,8 @@ struct module_t
         i++;
 
         const auto bytes = reinterpret_cast<uint8_t*>(m_handle);
-        for (size_t i = 0; i < m_info.SizeOfImage - len; i++) {
-            for (size_t j = 0; j < len; j++) {
+        for (size_t i{ }; i < m_info.SizeOfImage - len; i++) {
+            for (size_t j{ }; j < len; j++) {
                 if (bytes[i + j] != pattern[j] && pattern[j] != -1)
                     break;
                 if (j + 1 == len)

@@ -8,11 +8,11 @@ template<size_t len>
 struct string_literal
 {
     size_t m_len = len - 1;
-    std::array< char, len - 1 > m_value{ };
+    std::array<char, len - 1> m_value{ };
 
     consteval string_literal(const char(&str)[len])
     {
-        for (size_t i = 0; i < len - 1; i++)
+        for (size_t i{ }; i < len - 1; i++)
             m_value[i] = str[i];
     }
 };
