@@ -7,10 +7,10 @@
 
 #include <Windows.h>
 
-#define log_success(fmt, ...) logger::add< logger::level::success >(fmt, __VA_ARGS__)
-#define log_info(fmt, ...) logger::add< logger::level::info >(fmt, __VA_ARGS__)
-#define log_error(fmt, ...) logger::add< logger::level::error >(fmt, __VA_ARGS__)
-#define log_raw(fmt, ...) logger::add< logger::level::raw >(fmt, __VA_ARGS__)
+#define log_success(fmt, ...) logger::add<logger::level::success>(fmt, __VA_ARGS__)
+#define log_info(fmt, ...) logger::add<logger::level::info>(fmt, __VA_ARGS__)
+#define log_error(fmt, ...) logger::add<logger::level::error>(fmt, __VA_ARGS__)
+#define log_raw(fmt, ...) logger::add<logger::level::raw>(fmt, __VA_ARGS__)
 
 namespace logger
 {

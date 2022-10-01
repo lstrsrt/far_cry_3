@@ -1,5 +1,6 @@
 #pragma once
 
+#include <array>
 #include <Windows.h>
 
 #include "logger.h"
@@ -7,10 +8,11 @@
 namespace input
 {
     inline HWND m_hwnd{ };
+    inline std::array<bool, 255> m_keys{ };
 
-    static __declspec(noinline) bool is_key_pressed(UINT code) noexcept
+    static __declspec(noinline) bool is_key_pressed(uint32_t code) noexcept
     {
-        return HIWORD(GetKeyState(code));
+        return m_keys[code];
     }
 
     namespace wnd_proc

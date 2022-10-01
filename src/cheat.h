@@ -42,6 +42,8 @@ namespace cheat
         log_raw("Super jump: numpad 5");
         log_raw("No spread + recoil: numpad 6");
 
+        log_raw("Press delete to uninject.");
+
         using namespace std::chrono_literals;
         while (!input::is_key_pressed(VK_DELETE))
             std::this_thread::sleep_for(100ms);

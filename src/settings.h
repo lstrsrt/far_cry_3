@@ -7,9 +7,9 @@ struct setting
 {
     std::string m_name{ };
     bool m_value{ };
-    UINT m_key{ };
+    uint32_t m_key{ };
 
-    explicit setting(const char* name, UINT key) noexcept
+    explicit setting(const char* name, uint32_t key) noexcept
         : m_name(name), m_key(key) { }
 
     void update() noexcept

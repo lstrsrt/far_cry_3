@@ -53,8 +53,10 @@ void hooks::init()
 
 LRESULT CALLBACK input::wnd_proc::hook(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 {
-    if (msg == WM_KEYDOWN || msg == WM_KEYUP)
+    if (msg == WM_KEYUP || msg == WM_KEYDOWN) {
+        input::m_keys[wparam] = (msg == WM_KEYDOWN);
         settings::update();
+    }
 
     return CallWindowProc(original, hwnd, msg, wparam, lparam);
 }
@@ -84,8 +86,6 @@ void __fastcall hooks::sub_health_syringe::hook(sdk::unknown_struct* ecx, int)
 {
     if (!settings::m_inf_health_syringes)
         return original(ecx);
-
-    // ecx->m_health_syringes = 
 }
 
 int __fastcall hooks::get_life_state::hook(sdk::player* ecx, int)
